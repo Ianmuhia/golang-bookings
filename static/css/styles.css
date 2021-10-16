@@ -1,0 +1,20 @@
+.my-footer {
+    height: 5em;
+    padding: 1em;
+    background-color: #163b65;
+    color: aliceblue;
+    margin-top: 1.5em;
+    font-size: 80%;
+}
+
+.room-image {
+    max-width: 50%;
+}
+.datepicker{
+    z-index: 10000000;
+}
+/*.carousel{*/
+/*    height: 50px;*/
+/*    width: 90%;*/
+/*    background-color: powderblue;*/
+/*}*/
