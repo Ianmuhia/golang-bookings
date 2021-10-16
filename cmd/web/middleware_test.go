@@ -17,3 +17,16 @@ func TestNoSurf(t *testing.T) {
 		t.Errorf("type is not a http handler %T", v)
 	}
 }
+
+func TestSessionLoad(t *testing.T) {
+	var myH myHandler
+
+	h := SessionLoad(&myH)
+	switch v := h.(type) {
+	case http.Handler:
+	//do nothing
+
+	default:
+		t.Errorf("type is not a http handler %T", v)
+	}
+}
