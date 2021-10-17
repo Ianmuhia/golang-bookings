@@ -48,7 +48,6 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *mod
 
 	t, ok := tc[tmpl]
 	if !ok {
-		log.Println("could not get template from template cache")
 		return errors.New("can't get template from cache")
 	}
 	buf := new(bytes.Buffer)
