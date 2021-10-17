@@ -3,12 +3,13 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
+	"net/http"
+
 	"github.com/ianmuhia/bookings/internals/config"
 	"github.com/ianmuhia/bookings/internals/forms"
 	"github.com/ianmuhia/bookings/internals/models"
 	"github.com/ianmuhia/bookings/internals/render"
-	"log"
-	"net/http"
 )
 
 // Repo is the repository use by the handlers
@@ -90,7 +91,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	form := forms.New(r.PostForm)
 
 	form.Required("first_name", "last_name", "email", "phone")
-	form.MinLength("first_name", 3, r)
+	form.MinLength("first_name", 3)
 	form.IsEmail("email")
 
 	if !form.Valid() {
