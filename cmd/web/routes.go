@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 	"github.com/ianmuhia/bookings/internals/config"
 	"github.com/ianmuhia/bookings/internals/handlers"
 	"net/http"
@@ -11,8 +10,8 @@ import (
 func routes(app *config.AppConfig) http.Handler {
 	mux := chi.NewRouter()
 
-	mux.Use(middleware.Recoverer)
-	mux.Use(middleware.Logger)
+	//mux.Use(middleware.Recoverer)
+	//mux.Use(middleware.Logger)
 	mux.Use(NoSurf)
 	mux.Use(SessionLoad)
 

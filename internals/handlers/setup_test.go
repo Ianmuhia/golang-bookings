@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/alexedwards/scs/v2"
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 	"github.com/ianmuhia/bookings/internals/config"
 	"github.com/ianmuhia/bookings/internals/models"
 	"github.com/ianmuhia/bookings/internals/render"
@@ -13,6 +12,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"time"
 )
@@ -33,8 +33,12 @@ func getRoutes() http.Handler {
 	session.Cookie.SameSite = http.SameSiteLaxMode
 	session.Cookie.Secure = app.InProduction
 
-	app.Session = session
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
+	app.Session = session
+	app.InfoLog = infoLog
+	app.ErrorLog = errorLog
 	tc, err := CreateTestTemplateCache()
 	if err != nil {
 		log.Fatal("cannot create template cache")
@@ -51,8 +55,8 @@ func getRoutes() http.Handler {
 
 	mux := chi.NewRouter()
 
-	mux.Use(middleware.Recoverer)
-	mux.Use(middleware.Logger)
+	//mux.Use(middleware.Recoverer)
+	//mux.Use(middleware.Logger)
 	//mux.Use(NoSurf)
 	mux.Use(SessionLoad)
 
