@@ -9,11 +9,14 @@ import (
 	"github.com/ianmuhia/bookings/internals/render"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
 var app config.AppConfig
 var session *scs.SessionManager
+var infoLog *log.Logger
+var errorLog *log.Logger
 
 const (
 	port = ":8080"
@@ -40,6 +43,13 @@ func run() error {
 	gob.Register(models.Reservation{})
 
 	app.InProduction = false
+
+	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+
+	app.InfoLog = infoLog
+	app.ErrorLog = errorLog
+
 	session = scs.New()
 	session.Lifetime = 24 * time.Hour
 	session.Cookie.Persist = true
