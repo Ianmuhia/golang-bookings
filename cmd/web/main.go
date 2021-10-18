@@ -5,6 +5,7 @@ import (
 	"github.com/alexedwards/scs/v2"
 	"github.com/ianmuhia/bookings/internals/config"
 	"github.com/ianmuhia/bookings/internals/handlers"
+	"github.com/ianmuhia/bookings/internals/helpers"
 	"github.com/ianmuhia/bookings/internals/models"
 	"github.com/ianmuhia/bookings/internals/render"
 	"log"
@@ -69,7 +70,7 @@ func run() error {
 
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
-
 	render.NewTemplates(&app)
+	helpers.NewHelpers(&app)
 	return nil
 }
