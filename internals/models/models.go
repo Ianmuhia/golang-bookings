@@ -59,4 +59,5 @@ type RoomRestriction struct {
 	Room          Room
 	Reservation   Reservation
 	Restriction   Restriction
+	RestrictionID int
 }
