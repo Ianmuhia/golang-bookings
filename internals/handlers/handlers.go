@@ -8,6 +8,8 @@ import (
 	"github.com/ianmuhia/bookings/internals/repository"
 	"github.com/ianmuhia/bookings/internals/repository/dbrepo"
 	"net/http"
+	"strconv"
+	"time"
 
 	"github.com/ianmuhia/bookings/internals/config"
 	"github.com/ianmuhia/bookings/internals/forms"
@@ -72,16 +74,43 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 //PostReservation handles the posting of a reservation form
 func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
+
 	if err != nil {
 		helpers.ServerError(w, err)
 		return
 	}
 
+	sd := r.Form.Get("start_date")
+	ed := r.Form.Get("end_date")
+
+	//2020-10-10
+	layout := "2006-01-02"
+	startDate, err := time.Parse(layout, sd)
+	if err != nil {
+		helpers.ServerError(w, err)
+	}
+	endDate, err := time.Parse(layout, ed)
+	if err != nil {
+		helpers.ServerError(w, err)
+	}
+
+	roomID, err := strconv.Atoi(r.Form.Get("room_id"))
+	if err != nil {
+		helpers.ServerError(w, err)
+	}
+
 	reservation := models.Reservation{
+		ID:        0,
 		FirstName: r.Form.Get("first_name"),
 		LastName:  r.Form.Get("last_name"),
 		Email:     r.Form.Get("email"),
 		Phone:     r.Form.Get("phone"),
+		StartDate: startDate,
+		EndDate:   endDate,
+		RoomID:    roomID,
+		CreatedAt: time.Time{},
+		UpdatedAt: time.Time{},
+		Room:      models.Room{},
 	}
 	form := forms.New(r.PostForm)
 
@@ -102,6 +131,12 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		)
 		return
 	}
+
+	err = m.DB.InsertReservation(reservation)
+	if err != nil {
+		helpers.ServerError(w, err)
+	}
+
 	m.App.Session.Put(r.Context(), "reservation", reservation)
 	http.Redirect(w, r, "/reservation-summary", http.StatusSeeOther)
 }
