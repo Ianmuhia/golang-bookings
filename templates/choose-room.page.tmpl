@@ -21,10 +21,13 @@
                 </h1>
                 <p>
                     {{ $rooms := index .Data "rooms"}}
+                <ul>
 
                     {{range $rooms}}
-                        {{.RoomName}}<br>
+                        <li><a href="/choose-room/{{.ID}}"> {{.RoomName}}</a><br></li>
                     {{end}}
+                </ul>
+
                 </p>
             </div>
 

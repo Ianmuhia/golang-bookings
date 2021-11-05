@@ -67,7 +67,7 @@ func run() (*driver.DB, error) {
 
 	//connect to database
 	log.Println("connecting to database")
-	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=booking user=postgres password=*#*Johnte2536")
+	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=bookings user=postgres password=*#*Johnte2536")
 	if err != nil {
 		log.Fatal("can't connect to database")
 	}
@@ -75,6 +75,7 @@ func run() (*driver.DB, error) {
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
+		log.Println(err)
 		log.Fatal("cannot create template cache")
 		return nil, err
 	}

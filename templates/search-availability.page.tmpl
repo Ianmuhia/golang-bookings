@@ -58,8 +58,13 @@
 {{end}}
 
 {{define "js"}}
-    <script>
 
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js"></script>
+    <script>
+        // const picker = new Litepicker({
+        //     element: document.getElementById('reservation-dates')
+        // });
         const elem = document.getElementById('reservation-dates');
         const rangepicker = new DateRangePicker(elem, {
             format: "yyyy-mm-dd"

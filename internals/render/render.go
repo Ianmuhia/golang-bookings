@@ -70,6 +70,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 	pages, err := filepath.Glob(fmt.Sprintf("%s/*.tmpl", pathToTemplates))
 	if err != nil {
+
 		return myCache, err
 	}
 	for _, page := range pages {
