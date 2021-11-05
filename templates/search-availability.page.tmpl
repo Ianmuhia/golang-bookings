@@ -26,16 +26,16 @@
                     <div class="row">
                         <div class="col mt-5 mb-5">
                             <div id="reservation-dates" class="row">
-                                <div class="col">
+                                <div class="col" >
                                     <label>
-                                        <input required class="form-control" placeholder="Arrival" type="text"
+                                        <input required class="form-control" id="start" placeholder="Arrival" type="text"
                                                name="start">
                                     </label>
 
                                 </div>
-                                <div class="col">
+                                <div class="col" >
                                     <label>
-                                        <input required class="form-control" placeholder="Departure" type="text"
+                                        <input required class="form-control" id="end" placeholder="Departure" type="text"
                                                name="end">
                                     </label>
 
@@ -59,15 +59,20 @@
 
 {{define "js"}}
 
-    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js"></script>
     <script>
-        // const picker = new Litepicker({
-        //     element: document.getElementById('reservation-dates')
-        // });
-        const elem = document.getElementById('reservation-dates');
-        const rangepicker = new DateRangePicker(elem, {
-            format: "yyyy-mm-dd"
+        const picker = new Litepicker({
+            // element: document.getElementById('reservation-dates')
+            element: document.getElementById('start'),
+            elementEnd: document.getElementById('end'),
+            singleMode: false,
+            allowRepick: true,
+            minDate: new Date(),
         });
+        // const elem = document.getElementById('reservation-dates');
+        // const rangepicker = new DateRangePicker(elem, {
+        //     format: "yyyy-mm-dd"
+        // });
     </script>
 {{end}}

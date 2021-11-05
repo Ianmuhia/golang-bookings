@@ -10,6 +10,7 @@ import (
 	"github.com/ianmuhia/bookings/internals/repository/dbrepo"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/ianmuhia/bookings/internals/config"
@@ -65,6 +66,15 @@ func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
 	if !ok {
 		helpers.ServerError(w, errors.New("cannot get reservation from session"))
 	}
+
+	room, err := m.DB.GetRoomByID(res.RoomID)
+	res.Room.RoomName = room.RoomName
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
 	data := make(map[string]interface{})
 	data["reservation"] = res
 
@@ -95,13 +105,13 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	ed := r.Form.Get("end_date")
 
 	//2020-10-10
-	layout := "2006-01-02"
-	startDate, err := time.Parse(layout, sd)
+	layout := `2006-01-02`
+	startDate, err := time.Parse(layout, strings.TrimSpace(sd))
 	if err != nil {
 		helpers.ServerError(w, err)
 		return
 	}
-	endDate, err := time.Parse(layout, ed)
+	endDate, err := time.Parse(layout, strings.TrimSpace(ed))
 	if err != nil {
 		helpers.ServerError(w, err)
 		return
