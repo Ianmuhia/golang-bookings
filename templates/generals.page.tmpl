@@ -50,6 +50,12 @@
 {{end}}
 
 {{define "js"}}
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@pnotify/core@5.2.0/dist/PNotify.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+{{/*    <script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>*/}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pnotify/2.0.0/pnotify.all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     <script>
 
         document.getElementById("check-availability-btn").addEventListener("click", function () {
@@ -59,9 +65,9 @@
                  <div class="col">
                          <div class="row" id="reservation-date-modal">
                                 <div class="col">
-                                              <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
-                                    </div>/                <div class="col">
-                                                <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
+                                              <input  required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+                                    </div>               <div class="col">
+                                                <input  required class="form-control" type="text" name="end" id="end" placeholder="Departure">
                                     </div>
                          </div>
                      </div>
@@ -75,6 +81,7 @@
                     const rp = new DateRangePicker(elem, {
                         format: 'yyyy-mm-dd',
                         showOnFocus: true,
+
                     })
                 },
                 didOpen: () => {
@@ -85,7 +92,8 @@
 
                     let form = document.getElementById("check-availability-form")
                     let formData = new FormData(form)
-                    formData.append("csrf_token", "{{.CSRFToken}}")
+                    formData.append("csrf_token", "{{.CSRFToken}}");
+                    formData.append("room_id", "1");
 
                     fetch('/search-availability-json', {
                         method: "post",
@@ -94,6 +102,14 @@
                         .then(response => response.json())
                         .then(data => {
                             console.log(data);
+                            var notyf = new Notyf();
+
+                            if (data.ok==true){
+                                notyf.success('room is available');
+                            }else {
+                                notyf.error("is not available")
+                            }
+
                         })
                 }
 
