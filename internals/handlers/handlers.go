@@ -3,14 +3,15 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/go-chi/chi"
 	"github.com/ianmuhia/bookings/internals/driver"
 	"github.com/ianmuhia/bookings/internals/helpers"
 	"github.com/ianmuhia/bookings/internals/repository"
 	"github.com/ianmuhia/bookings/internals/repository/dbrepo"
-	"net/http"
-	"strconv"
-	"time"
 
 	"github.com/ianmuhia/bookings/internals/config"
 	"github.com/ianmuhia/bookings/internals/forms"
