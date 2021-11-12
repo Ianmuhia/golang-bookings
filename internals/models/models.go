@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 // User is the user model
 type User struct {
@@ -60,4 +62,12 @@ type RoomRestriction struct {
 	Reservation   Reservation
 	Restriction   Restriction
 	RestrictionID int
+}
+
+// MailData holds an email message
+type MailData struct {
+	To      string
+	From    string
+	Subject string
+	Content string
 }

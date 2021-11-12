@@ -32,6 +32,17 @@ func main() {
 	}
 	defer db.SQL.Close()
 
+	defer close(app.MailChan)
+	log.Println("Starting mail listener")
+	listenForMail()
+
+	//from := "me@here.com"
+	//auth := smtp.PlainAuth("", from, "", "localhost")
+	//err = smtp.SendMail("localhost:1025", auth, from, []string{"you@there.com"}, []byte("hellow"))
+	if err != nil {
+		log.Println(err)
+	}
+
 	log.Printf("starting app in %s", port)
 
 	srv := &http.Server{
@@ -48,6 +59,9 @@ func run() (*driver.DB, error) {
 	gob.Register(models.Restriction{})
 	gob.Register(models.Room{})
 	gob.Register(models.RoomRestriction{})
+
+	mailChan := make(chan models.MailData)
+	app.MailChan = mailChan
 
 	app.InProduction = false
 
