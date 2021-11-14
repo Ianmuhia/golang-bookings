@@ -1,7 +1,0 @@
-create_table("restrictions") {
-  t.Column("id", "int", {primary:true})
-  t.Column("restriction_name", "string", {"default":""})
-
-
-}
-

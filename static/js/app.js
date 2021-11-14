@@ -1,17 +1,16 @@
-let attention = Prompt();
-
-
+// Prompt is our JavaScript module for all alerts, notifications, and custom popup dialogs
 function Prompt() {
     let toast = function (c) {
         const {
             msg = "",
             icon = "success",
-            position = "top-end"
+            position = "top-end",
         } = c;
+
         const Toast = Swal.mixin({
             toast: true,
-            position: position,
             title: msg,
+            position: position,
             icon: icon,
             showConfirmButton: false,
             timer: 3000,
@@ -24,17 +23,19 @@ function Prompt() {
 
         Toast.fire({})
     }
+
     let success = function (c) {
         const {
             msg = "",
             title = "",
-            footer = ""
+            footer = "",
         } = c;
+
         Swal.fire({
             icon: 'success',
             title: title,
             text: msg,
-            footer: footer
+            footer: footer,
         })
     }
 
@@ -42,13 +43,14 @@ function Prompt() {
         const {
             msg = "",
             title = "",
-            footer = ""
+            footer = "",
         } = c;
+
         Swal.fire({
             icon: 'error',
             title: title,
             text: msg,
-            footer: footer
+            footer: footer,
         })
     }
 
@@ -57,25 +59,18 @@ function Prompt() {
             icon = "",
             msg = "",
             title = "",
-            showConfirmButton = true
+            showConfirmButton = true,
         } = c;
-        const {
-            value: result
-        } = await Swal.fire({
+
+        const {value: result} = await Swal.fire({
+            icon: icon,
             title: title,
-            icon:icon,
             html: msg,
             backdrop: false,
             focusConfirm: false,
             showCancelButton: true,
-            showConfirmButton:showConfirmButton,
+            showConfirmButton: showConfirmButton,
             willOpen: () => {
-                if (c.willOpen !== undefined) {
-                    c.willOpen();
-                }
-            },
-
-            didOpen: () => {
                 if (c.willOpen !== undefined) {
                     c.willOpen();
                 }
@@ -85,6 +80,11 @@ function Prompt() {
                     document.getElementById('start').value,
                     document.getElementById('end').value
                 ]
+            },
+            didOpen: () => {
+                if (c.didOpen !== undefined) {
+                    c.didOpen();
+                }
             }
         })
 
@@ -93,21 +93,21 @@ function Prompt() {
                 if (result.value !== "") {
                     if (c.callback !== undefined) {
                         c.callback(result);
-                    } else {
-                        c.callback(false);
                     }
                 } else {
                     c.callback(false);
-
                 }
+            } else {
+                c.callback(false);
             }
         }
     }
+
 
     return {
         toast: toast,
         success: success,
         error: error,
-        custom: custom
+        custom: custom,
     }
 }

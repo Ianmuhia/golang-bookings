@@ -2,73 +2,62 @@ package main
 
 import (
 	"encoding/gob"
-	"github.com/alexedwards/scs/v2"
-	"github.com/ianmuhia/bookings/internals/config"
-	"github.com/ianmuhia/bookings/internals/driver"
-	"github.com/ianmuhia/bookings/internals/handlers"
-	"github.com/ianmuhia/bookings/internals/helpers"
-	"github.com/ianmuhia/bookings/internals/models"
-	"github.com/ianmuhia/bookings/internals/render"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/alexedwards/scs/v2"
+	"github.com/ianmuhia/bookings/internal/driver"
+	"github.com/ianmuhia/bookings/internal/handlers"
+	"github.com/ianmuhia/bookings/internal/helpers"
+	"github.com/ianmuhia/bookings/internal/models"
+	"github.com/ianmuhia/bookings/internal/render"
+	"github.com/ianmuhia/bookings/internal/config"
+	
 )
+
+const portNumber = ":8080"
 
 var app config.AppConfig
 var session *scs.SessionManager
 var infoLog *log.Logger
 var errorLog *log.Logger
 
-const (
-	port = ":8080"
-)
-
+// main is the main application function
 func main() {
-
 	db, err := run()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.SQL.Close()
 
-	defer close(app.MailChan)
-	log.Println("Starting mail listener")
-	listenForMail()
-
-	//from := "me@here.com"
-	//auth := smtp.PlainAuth("", from, "", "localhost")
-	//err = smtp.SendMail("localhost:1025", auth, from, []string{"you@there.com"}, []byte("hellow"))
-	if err != nil {
-		log.Println(err)
-	}
-
-	log.Printf("starting app in %s", port)
+	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
 
 	srv := &http.Server{
-		Addr:    port,
+		Addr:    portNumber,
 		Handler: routes(&app),
 	}
+
 	err = srv.ListenAndServe()
 	log.Fatal(err)
 }
 
 func run() (*driver.DB, error) {
+	// what am I going to put in the session
 	gob.Register(models.Reservation{})
 	gob.Register(models.User{})
-	gob.Register(models.Restriction{})
 	gob.Register(models.Room{})
-	gob.Register(models.RoomRestriction{})
+	gob.Register(models.Restriction{})
 
-	mailChan := make(chan models.MailData)
-	app.MailChan = mailChan
-
+	// change this to true when in production
 	app.InProduction = false
 
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
-	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-
 	app.InfoLog = infoLog
+
+	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 	app.ErrorLog = errorLog
 
 	session = scs.New()
@@ -79,17 +68,16 @@ func run() (*driver.DB, error) {
 
 	app.Session = session
 
-	//connect to database
-	log.Println("connecting to database")
+	// connect to database
+	log.Println("Connecting to database...")
 	db, err := driver.ConnectSQL("host=localhost port=5432 dbname=bookings user=postgres password=*#*Johnte2536")
 	if err != nil {
-		log.Fatal("can't connect to database")
+		log.Fatal("Cannot connect to database! Dying...")
 	}
-	log.Println("connected to database")
+	log.Println("Connected to database!")
 
 	tc, err := render.CreateTemplateCache()
 	if err != nil {
-		log.Println(err)
 		log.Fatal("cannot create template cache")
 		return nil, err
 	}
@@ -101,5 +89,6 @@ func run() (*driver.DB, error) {
 	handlers.NewHandlers(repo)
 	render.NewRenderer(&app)
 	helpers.NewHelpers(&app)
+
 	return db, nil
 }

@@ -5,6 +5,6 @@ import "testing"
 func TestRun(t *testing.T) {
 	_, err := run()
 	if err != nil {
-		t.Errorf("failed coz of %s", err)
+		t.Error("failed run()")
 	}
 }

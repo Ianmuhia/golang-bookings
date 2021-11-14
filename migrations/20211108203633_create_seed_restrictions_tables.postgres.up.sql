@@ -1,2 +1,0 @@
-INSERT INTO public.restrictions (id, restriction_name, created_at, updated_at) VALUES (1, 'Room Restriction', '2021-11-05 00:05:10.000000', '2021-11-05 00:05:13.000000');
-INSERT INTO public.restrictions (id, restriction_name, created_at, updated_at) VALUES (2, 'Owner Block', '2021-11-08 23:38:34.000000', '2021-11-08 23:38:37.000000');
