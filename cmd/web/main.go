@@ -9,13 +9,12 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
+	"github.com/ianmuhia/bookings/internal/config"
 	"github.com/ianmuhia/bookings/internal/driver"
 	"github.com/ianmuhia/bookings/internal/handlers"
 	"github.com/ianmuhia/bookings/internal/helpers"
 	"github.com/ianmuhia/bookings/internal/models"
 	"github.com/ianmuhia/bookings/internal/render"
-	"github.com/ianmuhia/bookings/internal/config"
-	
 )
 
 const portNumber = ":8080"
@@ -33,7 +32,20 @@ func main() {
 	}
 	defer db.SQL.Close()
 
-	fmt.Println(fmt.Sprintf("Starting application on port %s", portNumber))
+	defer close(app.MailChan)
+
+	log.Println("Starting mail listener")
+
+	listenForMail()
+
+	//from := "me@here.com"
+	//auth := smtp.PlainAuth("", from, "", "localhost")
+	//err = smtp.SendMail("localhost:1025", auth, from, []string{"you@there.com"}, []byte("hellow"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Printf("Starting application on port %s", portNumber)
 
 	srv := &http.Server{
 		Addr:    portNumber,
