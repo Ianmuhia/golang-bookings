@@ -38,6 +38,14 @@ func main() {
 
 	listenForMail()
 
+
+	// msg := models.MailData{
+	// 	To: "John@do.ca",
+	// 	From: "me@here.com",
+	// 	Subject: "ascascdasdc",
+	// 	Content: "asdcasca",
+	// }
+	// app.MailChan <- msg
 	//from := "me@here.com"
 	//auth := smtp.PlainAuth("", from, "", "localhost")
 	//err = smtp.SendMail("localhost:1025", auth, from, []string{"you@there.com"}, []byte("hellow"))
@@ -62,6 +70,9 @@ func run() (*driver.DB, error) {
 	gob.Register(models.User{})
 	gob.Register(models.Room{})
 	gob.Register(models.Restriction{})
+
+	mailChan := make(chan models.MailData)
+	app.MailChan = mailChan
 
 	// change this to true when in production
 	app.InProduction = false

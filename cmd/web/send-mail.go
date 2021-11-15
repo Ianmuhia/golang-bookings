@@ -35,6 +35,7 @@ func sendMsg(m models.MailData) {
 
 	email.SetBody(mail.TextHTML, m.Content)
 	err = email.Send(client)
+	
 	if err != nil {
 		log.Println(err)
 	} else {

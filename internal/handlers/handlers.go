@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -141,6 +142,7 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		RoomID:    roomID,
 	}
 
+
 	form := forms.New(r.PostForm)
 
 	form.Required("first_name", "last_name", "email")
@@ -148,9 +150,13 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	form.IsEmail("email")
 
 	if !form.Valid() {
+
 		data := make(map[string]interface{})
+
 		data["reservation"] = reservation
+
 		http.Error(w, "my own error message", http.StatusSeeOther)
+
 		render.Template(w, r, "make-reservation.page.html", &models.TemplateData{
 			Form: form,
 			Data: data,
@@ -179,6 +185,21 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
 	}
+
+	// htmlMessage := fmt.Sprintf(`
+
+	// 	<strong>Reservation<strong
+	// `)
+
+	msg := models.MailData{
+		To:      reservation.Email,
+		From:    "me@here.com",
+		Subject: "Anything",
+		Content: "Test",
+	}
+
+	fmt.Println(reservation.Email)
+	m.App.MailChan <- msg
 
 	m.App.Session.Put(r.Context(), "reservation", reservation)
 

@@ -2,5 +2,6 @@
     "makefile.extensionOutputFolder": "./.vscode",
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
     "editor.fontSize": 12,
-    "editor.fontFamily": "'Fira Code'"
+    "editor.fontFamily": "'Fira Code'",
+    "editor.bracketPairColorization.enabled": true
 }
