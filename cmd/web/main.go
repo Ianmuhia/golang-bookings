@@ -38,7 +38,6 @@ func main() {
 
 	listenForMail()
 
-
 	// msg := models.MailData{
 	// 	To: "John@do.ca",
 	// 	From: "me@here.com",

@@ -142,7 +142,6 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		RoomID:    roomID,
 	}
 
-
 	form := forms.New(r.PostForm)
 
 	form.Required("first_name", "last_name", "email")
@@ -195,7 +194,8 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 		To:      reservation.Email,
 		From:    "me@here.com",
 		Subject: "Anything",
-		Content: "Test",
+		Template: "basic.html",
+		Content: "Thank you for making a reservation",
 	}
 
 	fmt.Println(reservation.Email)

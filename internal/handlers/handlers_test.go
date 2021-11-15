@@ -111,7 +111,6 @@ func TestRepository_Reservation(t *testing.T) {
 
 }
 
-
 func TestRepository_PostReservation(t *testing.T) {
 	reqBody := "start_date=2050-01-01"
 	reqBody = fmt.Sprintf("%s&%s", reqBody, "end_date=2050-01-02")
@@ -601,7 +600,6 @@ func TestRepository_AvailabilityJSON(t *testing.T) {
 		t.Error("Got availability when request body was empty")
 	}
 
-
 	/*****************************************
 	// fourth case -- database error
 	*****************************************/
@@ -684,7 +682,6 @@ func TestRepository_ReservationSummary(t *testing.T) {
 		t.Errorf("ReservationSummary handler returned wrong response code: got %d, wanted %d", rr.Code, http.StatusOK)
 	}
 }
-
 
 func TestRepository_ChooseRoom(t *testing.T) {
 	/*****************************************
