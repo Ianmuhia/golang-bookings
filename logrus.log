@@ -1,0 +1,214 @@
+{
+  "@timestamp": "2021-11-16T14:48:32.742+0300",
+  "ecs.version": "1.6.0",
+  "log.level": "info",
+  "log.origin.file.line": 213,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).PostReservation",
+  "message": "User booked room",
+  "method": "POST",
+  "room_id": 1,
+  "user_email": "asdf@sdf.asd",
+  "user_ip": "localhost:8080",
+  "user_name": "asdfs"
+}
+{
+  "@timestamp": "2021-11-16T15:56:34.703+0300",
+  "ecs.version": "1.6.0",
+  "log.level": "info",
+  "log.origin.file.line": 213,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).PostReservation",
+  "message": "User booked room",
+  "method": "POST",
+  "room_id": 1,
+  "user_email": "r@c.vo",
+  "user_ip": "localhost:8080",
+  "user_name": "etrg"
+}
+{
+  "@timestamp": "2021-11-16T16:23:13.036+0300",
+  "ecs.version": "1.6.0",
+  "log.level": "info",
+  "log.origin.file.line": 213,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).PostReservation",
+  "message": "User booked room",
+  "method": "POST",
+  "room_id": 2,
+  "user_email": "ewr@fgdf.ssdf",
+  "user_ip": "localhost:8080",
+  "user_name": "wrwerwer"
+}
+{
+  "@timestamp": "2021-11-16T18:24:17.233+0300",
+  "ecs.version": "1.6.0",
+  "log.level": "info",
+  "log.origin.file.line": 213,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).PostReservation",
+  "message": "User booked room",
+  "method": "POST",
+  "room_id": 1,
+  "user_email": "wrwe@gdf.c",
+  "user_ip": "localhost:8080",
+  "user_name": "wwerwerwer"
+}
+{
+  "@timestamp": "2021-11-16T18:27:38.525+0300",
+  "ecs.version": "1.6.0",
+  "log.level": "info",
+  "log.origin.file.line": 213,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).PostReservation",
+  "message": "User booked room",
+  "method": "POST",
+  "room_id": 1,
+  "user_email": "wer@fsdf.co",
+  "user_ip": "localhost:8080",
+  "user_name": "qwrwer"
+}
+{
+  "@timestamp": "2021-11-16T20:42:04.520+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 59,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-16T20:42:04.520+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "error",
+  "log.origin.file.line": 66,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "Error for testing new Error",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-16T20:48:40.805+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 59,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-16T20:48:40.805+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "error",
+  "log.origin.file.line": 66,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "Error for testing new Error",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-16T21:15:53.359+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 59,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-16T21:15:53.359+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "error",
+  "log.origin.file.line": 66,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "Error for testing new Error",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-17T12:54:28.523+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 59,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-17T12:54:49.075+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 59,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-17T13:14:54.092+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 59,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-17T13:14:56.468+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 59,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-17T13:14:57.410+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 59,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}
+{
+  "@timestamp": "2021-11-17T13:38:05.316+0300",
+  "ecs.version": "1.6.0",
+  "ip": null,
+  "log.level": "info",
+  "log.origin.file.line": 60,
+  "log.origin.file.name": "/home/ian/projects/personal/golang/golang-bookings/internal/handlers/handlers.go",
+  "log.origin.function": "github.com/ianmuhia/bookings/internal/handlers.(*Repository).Home",
+  "message": "User booked room",
+  "method": "GET",
+  "user_ip": "localhost:8080"
+}

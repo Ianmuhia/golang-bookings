@@ -47,6 +47,7 @@ func Template(w http.ResponseWriter, r *http.Request, tmpl string, td *models.Te
 	}
 	t, ok := tc[tmpl]
 	if !ok {
+
 		return errors.New("can't get template from cache")
 	}
 
@@ -74,6 +75,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 
 	pages, err := filepath.Glob(fmt.Sprintf("%s/*.page.html", pathToTemplates))
 	if err != nil {
+
 		return myCache, err
 	}
 

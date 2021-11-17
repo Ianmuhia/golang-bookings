@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -15,6 +16,7 @@ import (
 	"github.com/ianmuhia/bookings/internal/render"
 	"github.com/ianmuhia/bookings/internal/repository"
 	"github.com/ianmuhia/bookings/internal/repository/dbrepo"
+	"github.com/sirupsen/logrus"
 )
 
 // Repo the repository used by the handlers
@@ -49,6 +51,35 @@ func NewHandlers(r *Repository) {
 
 //Home is the home page handler
 func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
+	// log.WithError(errors.New("boom!")).WithField("custom", "foo").Info("hello")
+	// m.App.Logrus.WithError(errors.New("boom")).WithField("custom", "foo").Info("hello")
+	m.App.Logrus.WithFields(logrus.Fields{
+		"method":  r.Method,
+		"user_ip": r.Host,
+		"ip":      r.URL.User,
+	}).Info("User booked room")
+	// err = client.Set("id1234", json, 0).Err()
+	// if err != nil {
+	//     fmt.Println(err)
+	// }
+	// val, err := client.Get("id1234").Result()
+	// if err != nil {
+	//     fmt.Println(err)
+	// }
+	ctx := r.Context()
+
+	err := m.App.Cache.Set(ctx, "id1234", "123", time.Minute*2).Err()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	val, err := m.App.Cache.Get(ctx, "id1234").Result()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(val)
+
 	render.Template(w, r, "home.page.html", &models.TemplateData{})
 }
 
@@ -191,15 +222,24 @@ func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
 	// `)
 
 	msg := models.MailData{
-		To:      reservation.Email,
-		From:    "me@here.com",
-		Subject: "Anything",
+		To:       reservation.Email,
+		From:     "me@here.com",
+		Subject:  "Anything",
 		Template: "basic.html",
-		Content: "Thank you for making a reservation",
+		Content:  "Thank you for making a reservation",
 	}
 
-	fmt.Println(reservation.Email)
+	// fmt.Println(reservation.Email)
+	// m.App.Logrus.
 	m.App.MailChan <- msg
+
+	m.App.Logrus.WithFields(logrus.Fields{
+		"user_name":  reservation.FirstName,
+		"user_email": reservation.Email,
+		"room_id":    reservation.RoomID,
+		"method":     r.Method,
+		"user_ip":    r.Host,
+	}).Info("User booked room")
 
 	m.App.Session.Put(r.Context(), "reservation", reservation)
 
@@ -435,4 +475,51 @@ func (m *Repository) BookRoom(w http.ResponseWriter, r *http.Request) {
 	m.App.Session.Put(r.Context(), "reservation", res)
 
 	http.Redirect(w, r, "/make-reservation", http.StatusSeeOther)
+}
+
+func (m *Repository) ShowLogin(w http.ResponseWriter, r *http.Request) {
+	render.Template(w, r, "login.page.html", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+func (m *Repository) PostShowLogin(w http.ResponseWriter, r *http.Request) {
+	_ = m.App.Session.RenewToken(r.Context())
+	err := r.ParseForm()
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	email := r.Form.Get("email")
+	password := r.Form.Get("password")
+
+	form := forms.New(r.PostForm)
+	form.Required("email", "password")
+	form.IsEmail("email")
+
+	if !form.Valid() {
+		render.Template(w, r, "login.page.html", &models.TemplateData{
+
+			Form: form,
+		})
+
+		return
+
+	}
+
+	id, _, err := m.DB.Authenticate(email, password)
+	if err != nil {
+		log.Println(err)
+
+		m.App.Session.Put(r.Context(), "error", "Invalid login details")
+		http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+		return
+	}
+
+	m.App.Session.Put(r.Context(), "user_id", id)
+	m.App.Session.Put(r.Context(), "flash", "Logged in success")
+
+	http.Redirect(w, r, "/", http.StatusSeeOther)
+
 }
